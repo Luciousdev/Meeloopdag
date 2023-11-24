@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\assignments;
+use App\Models\submissions;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
@@ -40,7 +42,7 @@ class AuthController extends Controller
         // Validate the user input
         $request->validate([
             'full_name'     => 'required|unique:users',
-            'password' => 'required|min:6',
+            'password'      => 'required|min:6',
         ]);
 
         // Send the data to the database
@@ -98,13 +100,22 @@ class AuthController extends Controller
         $data = array();
 
         // Check if the user is logged in
-        if (session()->has('loggedInUserID'))
+        if (!session()->has('loggedInUserID'))
         {
-            // If the user is logged in, get their user ID
-            $userID = session()->get('loggedInUserID');
-            // Query the database for the user's data
-            $data = User::where('id', '=', $userID)->first();
+            return redirect('/logout');
         }
+
+        // If the user is logged in, get their user ID
+        $userID = session()->get('loggedInUserID');
+        // Query the database for the user's data
+        $data = User::where('id', '=', $userID)->first();
+
+        // get all rows from assignments table and add it to the data array
+        $data['assignments'] = assignments::all('title', 'points');
+
+        // $data['submissions'] = submissions::where('student_id','=', $userID);
+
+        // dd($data['submissions']);
 
         // Return the dashboard view with the user's data
         return view('student.dashboard', compact('data'));

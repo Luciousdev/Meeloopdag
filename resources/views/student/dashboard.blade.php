@@ -1,14 +1,52 @@
 <!DOCTYPE html>
+<?php
+$pageTitle="Dashboard";
+
+
+// DEBUG
+
+// dd($data['submissions']);
+// echo "<pre>";
+// print_r($data['assignments']);
+// echo "</pre>";
+
+?>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    @include('../components.headtags')
 </head>
 <body>
-    <a href="logout">logout</a>
+    @include('../components.nav')
+    {{-- <a href="logout">logout</a>
     <p>Full name</p>
-    <p>{{$data->full_name}}</p>
+    <p>{{$data->full_name}}</p> --}}
+    {{-- create an simple card with bootstrap --}}
+    <div class="container welcomeContainer">
+        <div class="row">
+            <div class="col">
+                <h1>Welkom <?php echo $data->full_name; ?></h1>
+                <p>Je bent ingelogd als een "<?php echo $data->type; ?>"</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <?php foreach($data['assignments'] as $assignment) { ?>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $assignment['title']; ?></h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <a href="" class="btn btn-card">werwer</a>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Max punten: <?php echo $assignment['points']; ?></small>
+                        <small class="text-muted"></small>
+                    </div>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
