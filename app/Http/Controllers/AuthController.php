@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\assignments;
-use App\Models\submissions;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Contracts\Session\Session;
-// use Hash;
 use Illuminate\Support\Facades\Hash;
-use PhpParser\Node\Stmt\Return_;
+use App\Mail\SignupConfirm;
+use Illuminate\Support\Facades\Mail;
 
 
 class AuthController extends Controller
@@ -42,15 +40,26 @@ class AuthController extends Controller
         // Validate the user input
         $request->validate([
             'full_name'     => 'required|unique:users',
+            'email'         => 'required|email|unique:users',
             'password'      => 'required|min:6',
         ]);
+
+        // Generate a random number for the verification code
+        $randomInt = mt_rand(1000, 9999);
 
         // Send the data to the database
         $user = new User();
         $user->full_name = $request->input('full_name');
+        $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
+        $user->verification_code = $randomInt;
+        $user->verified = false;
         $user->type = 'student';
         $result = $user->save();
+
+        // Send the user an email with the verification code
+        Mail::to($user->email)->send(new SignupConfirm($user));
+
 
         // Redirect the user to the login page, based on the output state of the insert data into DB
         if ($result)
@@ -67,16 +76,23 @@ class AuthController extends Controller
     {
         // Validate the user input
         $request->validate([
-            'full_name'=> 'required',
+            'email'=> 'required',
             'password' => 'required|min:6',
         ]);
 
         // Check if the user exists in the database
-        $user = User::where('full_name', '=', $request->input('full_name'))->first();
+        $user = User::where('email', '=', $request->input('email'))->first();
 
         // If the user exists, check if the password is correct
         if ($user)
         {
+            // dd($user->verified);
+            // Check if the user has verified their account
+            if ($user->verified == 0 || $user->verified == false)
+            {
+                return back()->with('error', 'Please verify your account first.');
+            }
+
             if (Hash::check($request->input('password'), $user->password))
             {
                 $request->session()->put('loggedInUserID', $user->id);
@@ -94,31 +110,35 @@ class AuthController extends Controller
     }
 
 
-    public function Dashboard()
+    public function verify($email, $code)
     {
-        // Initialize an empty array to hold data
-        $data = array();
+        $email = urldecode($email);
 
-        // Check if the user is logged in
-        if (!session()->has('loggedInUserID'))
+        // Check if the user exists in the database
+        $user = User::where('email', '=', $email)->first();
+
+
+        if ($user)
         {
-            return redirect('/logout');
+            // Check if the code matches the one in the database
+            if ($user->verification_code == $code)
+            {
+                // Update the user's verified status to true
+                $user->verified = true;
+                $user->save();
+
+                // Redirect the user to the login page
+                return redirect('/')->with('success', 'Account verified successfully.');
+            }
+            else
+            {
+                return redirect('/')->with('error', 'Invalid verification code.');
+            }
         }
-
-        // If the user is logged in, get their user ID
-        $userID = session()->get('loggedInUserID');
-        // Query the database for the user's data
-        $data = User::where('id', '=', $userID)->first();
-
-        // get all rows from assignments table and add it to the data array
-        $data['assignments'] = assignments::all('title', 'points');
-
-        // $data['submissions'] = submissions::where('student_id','=', $userID);
-
-        // dd($data['submissions']);
-
-        // Return the dashboard view with the user's data
-        return view('student.dashboard', compact('data'));
+        else
+        {
+            return redirect('/')->with('error', 'No user found.');
+        }
     }
 
     public function logoutUser()

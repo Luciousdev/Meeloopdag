@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -38,9 +39,10 @@ Route::get('/', [AuthController::class, 'login']);              # <------ Login 
 Route::get('/register', [AuthController::class, 'registration']);               # <------ Sign up page
 Route::get('/logout', [AuthController::class, 'logoutUser']);
 
-// Post requests for signing up and logging in
+// Post requests for signing up, logging in and verifying the user's account
 Route::post('/register-user', [AuthController::class, 'accountRegistration'])->name('register-user');               # <------ Will user go to after clicking on the button to register
 Route::post('/login-user', [AuthController::class, 'loginUser'])->name('login-user');               # <------ Will user go to after clicking the login button
+Route::get('verify/{email}/{code}', [AuthController::class, 'verify']);               # <------ Will user go to clicking on the button to verify their account
 
 // Send user to dashboard
-Route::get('dashboard', [AuthController::class, 'dashboard'])->middleware('userAuthStatus');              # <------ Send the user to their dashboard
+Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware('userAuthStatus');              # <------ Send the user to their dashboard
