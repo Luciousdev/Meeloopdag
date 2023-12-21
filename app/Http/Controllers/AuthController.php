@@ -77,7 +77,7 @@ class AuthController extends Controller
         // Validate the user input
         $request->validate([
             'email'=> 'required',
-            'password' => 'required|min:6',
+            'password' => 'required',
         ]);
 
         // Check if the user exists in the database
@@ -86,22 +86,20 @@ class AuthController extends Controller
         // If the user exists, check if the password is correct
         if ($user)
         {
-            // dd($user->verified);
             // Check if the user has verified their account
             if ($user->verified == 0 || $user->verified == false)
             {
                 return back()->with('error', 'Please verify your account first.');
             }
 
+            // Check if the password matches the one in the database
             if (Hash::check($request->input('password'), $user->password))
             {
                 $request->session()->put('loggedInUserID', $user->id);
                 return redirect('dashboard');
             }
-            else
-            {
-                return back()->with('error', 'Invalid password.');
-            }
+
+            return back()->with('error', 'Invalid password.'); // If password is incorrect and user has not verified their account yet.
         }
         else
         {

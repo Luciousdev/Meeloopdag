@@ -56,5 +56,14 @@ a {
 }
 
 .container-settings {
-    padding: 0.8rem;
+    padding: 2.5rem;
+}
+
+footer {
+    background-color: var(--secondary-background-color);
+}
+
+footer p {
+    padding: 0;
+    margin: 0;
 }
