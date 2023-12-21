@@ -130,11 +130,13 @@ class AuthController extends Controller
             }
             else
             {
+                // Redirect the user to the login page  with an error message
                 return redirect('/')->with('error', 'Invalid verification code.');
             }
         }
         else
         {
+            // Redirect the user to the login page with an error message
             return redirect('/')->with('error', 'No user found.');
         }
     }

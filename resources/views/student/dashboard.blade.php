@@ -3,17 +3,11 @@
 $pageTitle="Dashboard";
 
 
-// DEBUG
-
-// dd($data['submissions']);
-// echo "<pre>";
-// print_r($data['assignments']);
-// echo "</pre>";
-
 ?>
 <html lang="en">
 <head>
     @include('../components.headtags')
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 </head>
 <body>
     @include('../components.nav')
@@ -21,6 +15,7 @@ $pageTitle="Dashboard";
     <p>Full name</p>
     <p>{{$data->full_name}}</p> --}}
     {{-- create an simple card with bootstrap --}}
+
     <div class="container-fluid container-settings">
         <div class="row">
             <div class="col">
@@ -32,19 +27,20 @@ $pageTitle="Dashboard";
     <div class="container-fluid container-settings">
         <div class="row">
             <div class="col">
-                <?php foreach($data['assignments'] as $assignment) { ?>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $assignment['title']; ?></h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <a href="" class="btn btn-card">werwer</a>
+                <div class="card-grid">
+                    @foreach ($data['assignments'] as $assignment)
+                        <div class="card">
+                            <div class="card-header">@php echo $data->full_name; @endphp</div>
+                            <div class="card-body">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium soluta libero reprehenderit porro voluptate esse quidem alias quasi, facilis culpa cum voluptatum! Quibusdam impedit porro deleniti cupiditate nemo sint dolores.
+                            </div>
+                            <div class="card-footer">
+                                <a href="" class="btn">Ga naar opdracht</a>
+                                <small class="text-muted">Max punten: @php echo $assignment['points']; @endphp</small>
+                            </div>
                         </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Max punten: <?php echo $assignment['points']; ?></small>
-                            <small class="text-muted"></small>
-                        </div>
-                    </div>
-                <?php } ?>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

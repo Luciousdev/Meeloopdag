@@ -1,57 +1,18 @@
+<?php
+$pageTitle = "Registreren";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Registration Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #3e8e41;
-        }
-        .error {
-            color: red;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-    </style>
+    @include('./components.headtags')
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/loginsignup.css') }}">
     @livewireStyles
 </head>
 <body>
-    <h1>Registration Form</h1>
+    <h1 class="text-center">Registration Form</h1>
     <form wire:submit.prevent="submit" action="{{ route('register-user') }}" method="post">
         @if(Session::has('success'))
         <div class="alert alert-success">Thanks for registering. Please don't forget to register your account with the link that has been sent to your mailbox. 📬</div>
@@ -74,10 +35,12 @@
         <input type="password" name="password" placeholder="Please enter a password" value="{{ old('password') }}">
         @error('password') <div class="error">{{ $message }}</div> @enderror
 
-        <button type="submit">Register</button>
+        <button class="btn" type="submit">Register</button>
+        <div class="text-right">
+            <span>Already have an account? <a href="{{ url('/') }}">Login here!</a></span>
+        </div>
     </form>
 
-    <a href="{{ url('/') }}">Already have an account? Login here!</a>
 
     @livewireScripts
 </body>
