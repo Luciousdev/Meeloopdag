@@ -28,7 +28,7 @@ class DashboardController extends Controller
         // Query the database for the user's data
         $data = User::where('id', '=', $userID)->first();
         // get all rows from assignments table and add it to the data array
-        $data['assignments'] = assignments::all('title', 'points');
+        $data['assignments'] = assignments::all('id', 'title','short_description', 'points');
 
 
         // Return the dashboard view with the user's data

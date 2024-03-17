@@ -49,6 +49,13 @@
     padding: 0 var(--padding);
 }
 
+.card-footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: center;
+}
+
 .card-footer {
     margin-top: 1rem;
     padding: var(--padding);

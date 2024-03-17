@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExerciseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ use App\Http\Controllers\AuthController;
 | And other pages later down as well. It's just good to note that in some ways,
 | this code is structured even if it's just a routes file.
 |
-| DONT FORGET TO ADD THE LINE BELOW FOR PAGES WHERE USER AUTH IS REQUIRED!
+| DO NOT FORGET TO ADD THE LINE BELOW FOR PAGES WHERE USER AUTH IS REQUIRED!
 | ->middleware('userAuthStatus')
 |
 */
@@ -46,3 +47,4 @@ Route::get('verify/{email}/{code}', [AuthController::class, 'verify']);         
 
 // Send user to dashboard
 Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware('userAuthStatus');              # <------ Send the user to their dashboard
+Route::get('exercise/{id}', [ExerciseController::class, 'exercise'])->middleware('userAuthStatus');              # <------ Send the user to their dashboard

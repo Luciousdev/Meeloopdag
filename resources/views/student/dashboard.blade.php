@@ -30,13 +30,21 @@ $pageTitle="Dashboard";
                 <div class="card-grid">
                     @foreach ($data['assignments'] as $assignment)
                         <div class="card">
-                            <div class="card-header">@php echo $data->full_name; @endphp</div>
+                            <div class="card-header">@php echo $assignment->title; @endphp</div>
                             <div class="card-body">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium soluta libero reprehenderit porro voluptate esse quidem alias quasi, facilis culpa cum voluptatum! Quibusdam impedit porro deleniti cupiditate nemo sint dolores.
+                                <p class="card-text" style="color:#000;">@php
+                                    if(!empty($assignment->short_description)){
+                                        echo $assignment->short_description;
+                                    } else {
+                                        echo "Bij deze opdracht is geen beschrijving";
+                                    }
+                                @endphp</p>
                             </div>
                             <div class="card-footer">
-                                <a href="" class="btn">Ga naar opdracht</a>
-                                <small class="text-muted">Max punten: @php echo $assignment['points']; @endphp</small>
+                                <div class="card-footer-content">
+                                    <a href="{{ url('/exercise/'.$assignment->id) }}" class="btn">Ga naar opdracht</a>
+                                    <small class="text-muted">Max punten: @php echo $assignment['points']; @endphp</small>
+                                </div>
                             </div>
                         </div>
                     @endforeach
