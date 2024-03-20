@@ -1,0 +1,14 @@
+.navContainer {
+    background-color: #4E4E50;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.navContainer a {
+    padding-right: 20px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}

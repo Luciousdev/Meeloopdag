@@ -1,26 +1,20 @@
 {{-- NAV BAR --}}
-<section class="navContainer">
-    <header class="header" id="header">
-        <nav class="navbar containerNormal">
-            {{-- <img src="/images/logo.png" alt="" class="brand"> --}}
-            <p class="brand">
-                {{ $data->full_name }}
-            </p>
-            <div class="burger" id="burger">
-                <span class="burger-line"></span>
-                <span class="burger-line"></span>
-                <span class="burger-line"></span>
-            </div>
-            <div class="menu" id="menu">
-                <ul class="menu-inner">
-                    <?php if( $data->type == "teacher") { ?>
-                        <li class="menu-item"><a href="#" class="menu-link">Opdracht aanmaken</a></li>
-                        <li class="menu-item"><a href="#" class="menu-link">Nakijken</a></li>
-                        <li class="menu-item"><a href="#" class="menu-link">Docenten Dashboard</a></li>
-                    <?php } ?>
-                    <li class="menu-item"><a href="/logout" class="menu-link">Uitloggen</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-</section>
+<head>
+    <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
+</head>
+<nav>
+    <div class="navContainer">
+        <div>
+            <?php if($data->type == "teacher") { ?>
+            <a href="#">Opdracht aanmaken</a>
+            <a href="/grading">Nakijken</a>
+            <a href="#">Docenten Dashboard</a>
+            <?php } ?>
+            <a href="/logout">Uitloggen</a>
+        </div>
+        <div>
+            <a class="inner-nav-right" href="/profile">Profiel</a>
+        </div>
+    </div>
+</nav>
+{{-- END NAV BAR --}}

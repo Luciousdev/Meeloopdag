@@ -15,6 +15,11 @@ $pageTitle="Dashboard";
     <p>Full name</p>
     <p>{{$data->full_name}}</p> --}}
     {{-- create an simple card with bootstrap --}}
+    @if(session('error'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <div class="container-fluid container-settings">
         <div class="row">

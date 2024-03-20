@@ -1,0 +1,11 @@
+.feedback-container {
+    border-bottom: solid #ffffff 2px;
+}
+
+h1, h2, h3, h4, p {
+    color: #ffffff;
+}
+
+textarea {
+    background-color: #121212;!important
+}

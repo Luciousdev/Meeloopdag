@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExerciseController;
+use App\Http\Controllers\gradeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,4 +48,8 @@ Route::get('verify/{email}/{code}', [AuthController::class, 'verify']);         
 
 // Send user to dashboard
 Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware('userAuthStatus');              # <------ Send the user to their dashboard
-Route::get('exercise/{id}', [ExerciseController::class, 'exercise'])->middleware('userAuthStatus');              # <------ Send the user to their dashboard
+Route::get('exercise/{id}', [ExerciseController::class, 'exercise'])->middleware('userAuthStatus');# <------ Send the user to their dashboard
+Route::post('submit-assignment', [ExerciseController::class, 'submitAssignment'])->name('submit-assignment')->middleware('userAuthStatus');
+Route::get('/grading', [gradeController::class, 'grading'])->middleware('userAuthStatus');
+Route::get('/grade/{id}', [gradeController::class, 'grade'])->middleware('userAuthStatus');
+Route::post('/grade-submission', [gradeController::class, 'gradeSubmission'])->name('grade-submission')->middleware('userAuthStatus');
