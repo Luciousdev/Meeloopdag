@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\gradeController;
+use App\Http\Controllers\createExerciseController;
+use App\Http\Controllers\profileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,10 +48,13 @@ Route::post('/register-user', [AuthController::class, 'accountRegistration'])->n
 Route::post('/login-user', [AuthController::class, 'loginUser'])->name('login-user');               # <------ Will user go to after clicking the login button
 Route::get('verify/{email}/{code}', [AuthController::class, 'verify']);               # <------ Will user go to clicking on the button to verify their account
 
-// Send user to dashboard
+
 Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware('userAuthStatus');              # <------ Send the user to their dashboard
 Route::get('exercise/{id}', [ExerciseController::class, 'exercise'])->middleware('userAuthStatus');# <------ Send the user to their dashboard
 Route::post('submit-assignment', [ExerciseController::class, 'submitAssignment'])->name('submit-assignment')->middleware('userAuthStatus');
 Route::get('/grading', [gradeController::class, 'grading'])->middleware('userAuthStatus');
 Route::get('/grade/{id}', [gradeController::class, 'grade'])->middleware('userAuthStatus');
 Route::post('/grade-submission', [gradeController::class, 'gradeSubmission'])->name('grade-submission')->middleware('userAuthStatus');
+Route::get('/create-exercise', [createExerciseController::class, 'createExercise'])->middleware('userAuthStatus');
+Route::post('/submitExercise', [createExerciseController::class, 'submitExercise'])->name('submitExercise')->middleware('userAuthStatus');
+Route::get('/profile', [profileController::class, 'profile'])->middleware('userAuthStatus');

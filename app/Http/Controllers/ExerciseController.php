@@ -48,13 +48,12 @@ class ExerciseController extends Controller
             $userID = session()->get('loggedInUserID');
             $assignmentID = $request->id;
             $submission_user = $request->submission_user;
-//        dd($request->all());
 
             $submission = new submissions();
             $submission->student_id = $userID;
             $submission->assignment_id = $assignmentID;
             $submission->status = 'submitted';
-            $submission->text_submission = $submission_user;
+            $submission->text_submission = "```\n" . $submission_user . "\n```";
             $submission->save();
 
             return redirect('/exercise/' . $assignmentID)->with('success', 'Assignment submitted successfully!');

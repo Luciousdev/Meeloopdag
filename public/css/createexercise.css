@@ -1,0 +1,11 @@
+.editor-toolbar a {
+    color: #ffffff !important;
+}
+
+.CodeMirror {
+    height: 20vh !important;
+}
+
+span {
+    color: #000;
+}

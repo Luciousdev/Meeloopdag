@@ -5,10 +5,10 @@
 <nav>
     <div class="navContainer">
         <div>
+            <a href="/dashboard">Dashboard</a>
             <?php if($data->type == "teacher") { ?>
-            <a href="#">Opdracht aanmaken</a>
+            <a href="/create-exercise">Opdracht aanmaken</a>
             <a href="/grading">Nakijken</a>
-            <a href="#">Docenten Dashboard</a>
             <?php } ?>
             <a href="/logout">Uitloggen</a>
         </div>

@@ -1,9 +1,7 @@
-<!DOCTYPE html>
 <?php
-$pageTitle="Dashboard";
-
-
+    $pageTitle="Dashboard";
 ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     @include('../components.headtags')
@@ -11,10 +9,6 @@ $pageTitle="Dashboard";
 </head>
 <body>
     @include('../components.nav')
-    {{-- <a href="logout">logout</a>
-    <p>Full name</p>
-    <p>{{$data->full_name}}</p> --}}
-    {{-- create an simple card with bootstrap --}}
     @if(session('error'))
         <div class="alert alert-danger" role="alert">
             {{ session('error') }}
@@ -25,7 +19,7 @@ $pageTitle="Dashboard";
         <div class="row">
             <div class="col">
                 <h1>Welkom <?php echo $data->full_name; ?></h1>
-                <p>Je bent ingelogd als een "<?php echo $data->type; ?>"</p>
+                <p style="max-width: 60vw;">Je bent ingelogd als een "<?php echo $data->type; ?>". Begin met het maken van een opdracht door een opdracht te kiezen hieronder. De docenten doen hun best om het zo snel mogelijk voor je na te kijken! Voor vragen kan je altijd terecht bij een docent.</p>
             </div>
         </div>
     </div>
@@ -47,7 +41,7 @@ $pageTitle="Dashboard";
                             </div>
                             <div class="card-footer">
                                 <div class="card-footer-content">
-                                    <a href="{{ url('/exercise/'.$assignment->id) }}" class="btn">Ga naar opdracht</a>
+                                    <a href="{{ url('/exercise/'.$assignment->id) }}" class="btn btn-prim">Ga naar opdracht</a>
                                     <small class="text-muted">Max punten: @php echo $assignment['points']; @endphp</small>
                                 </div>
                             </div>
@@ -57,7 +51,6 @@ $pageTitle="Dashboard";
             </div>
         </div>
     </div>
-
     @include('../components.footer')
 </body>
 </html>

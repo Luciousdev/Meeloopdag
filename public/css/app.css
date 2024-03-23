@@ -50,13 +50,20 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+label {
     color: var(--brand-color);
 }
 
 p,
-span {
+span,
+li {
     color: var(--color-white-200);
+}
+
+label {
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
 a {
@@ -161,4 +168,19 @@ input[type="number"] {
     color:#f1f1f1;
     padding:10px;
     width: 50px;
+}
+
+input[type="text"] {
+    background-color:#121212;
+    border: 1px solid #4E4E50;
+    border-radius: 15px;
+    color:#f1f1f1;
+    padding:10px;
+    width: 50vw;
+}
+
+
+pre,
+code {
+    background-color: #eef;
 }

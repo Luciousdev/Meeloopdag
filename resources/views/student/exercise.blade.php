@@ -51,7 +51,12 @@
     <div class="container-fluid container-settings feedback-container">
         <div class="row">
             <div class="col">
-                {!! $markdown->parse($assignment->description) !!}
+                @php
+                    $text = $parsedown->text($assignment->description);
+                    $final = htmlspecialchars_decode($text);
+                    echo $final;
+//                    echo nl2br(htmlspecialchars_decode($assignment->description));
+                @endphp
             </div>
         </div>
     </div>

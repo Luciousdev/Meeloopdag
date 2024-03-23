@@ -1,5 +1,7 @@
 @inject('markdown', 'Illuminate\Mail\Markdown')
-@php $pageTitle = $submission->assignment->title . " aan het nakijken van ". $submission->user->full_name @endphp
+@php $pageTitle = $submission->assignment->title . " aan het nakijken van ". $submission->user->full_name;
+$parsedown = new Parsedown();
+@endphp
 <html lang="nl">
 <head>
     @include('components.headtags')
@@ -17,7 +19,12 @@
 
         <div class="row">
             <div class="col-9" style="border-right: 2px solid #fff;">
-                {!! $markdown->parse($submission->text_submission) !!}
+                <p>
+                    @php
+                        $parsedown = new Parsedown()
+                    @endphp
+                    <?= $parsedown->text($submission->text_submission); ?>
+                </p>
             </div>
             <div class="col-3">
                 <p style="margin-bottom:0;">Opdracht: {{ $submission->assignment->title }}</p>
@@ -50,7 +57,12 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <p>Gegeven feedback: {{ $submission->grade->feedback }}</p>
+                    @if($submission->grade->feedback != null)
+                        <p>Cijfer: {{ $submission->grade->score }}/{{ $submission->assignment->points }}</p>
+                        <p>Gegeven feedback: {{ $submission->grade->feedback }}</p>
+                    @else
+                        <p>Geen feedback gegeven</p>
+                    @endif
                 </div>
             </div>
         @endif

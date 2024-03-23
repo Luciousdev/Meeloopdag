@@ -35,9 +35,9 @@ $pageTitle = "Registreren";
         <input type="password" name="password" placeholder="Please enter a password" value="{{ old('password') }}">
         @error('password') <div class="error">{{ $message }}</div> @enderror
 
-        <button class="btn" type="submit">Register</button>
+        <button class="btn btn-prim" type="submit">Register</button>
         <div class="text-right">
-            <span>Already have an account? <a href="{{ url('/') }}">Login here!</a></span>
+            <span style="color:#000;">Already have an account? <a href="{{ url('/') }}">Login here!</a></span>
         </div>
     </form>
 

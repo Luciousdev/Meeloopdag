@@ -31,9 +31,9 @@ $pageTitle="Login Page";
             <label for="password">Password</label>
             <input type="password" class="" name="password" placeholder="Please enter your password" value="{{ old('password') }}">
         </div>
-        <button class="btn" type="submit">Login</button>
+        <button class="btn btn-prim" type="submit">Login</button>
         <div class="text-right">
-            <span>Do you not have an account? Register <a href="/register">here!</a></span>
+            <span style="color:#000;">Do you not have an account? Register <a href="/register">here!</a></span>
         </div>
     </form>
     @livewireScripts
