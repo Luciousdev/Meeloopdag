@@ -15,7 +15,6 @@
         "parsedown/laravel": "^1.2"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.12",
         "deployer/deployer": "^7.3",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
