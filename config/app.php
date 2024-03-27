@@ -169,7 +169,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Parsedown\Providers\ParsedownServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
     ])->toArray(),
 
     /*
