@@ -27,7 +27,6 @@ class LoginRegisterTest extends TestCase
 
     public function test_user_verification()
     {
-//        verify/{email}/{code}
         // get the code from the registered user
         $user = User::where('email', env('TEST_USER_EMAIL'))->first();
         $code = $user->verification_code;

@@ -47,7 +47,7 @@ class AuthController extends Controller
         // Generate a random number for the verification code
         $randomInt = mt_rand(1000, 9999);
 
-        // Send the data to the database
+        // Store the user data in the database
         $user = new User();
         $user->full_name = $request->input('full_name');
         $user->email = $request->input('email');
