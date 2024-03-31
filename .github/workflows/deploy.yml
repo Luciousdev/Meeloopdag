@@ -31,13 +31,9 @@ jobs:
         run:
           sudo tailscale up --authkey ${{ secrets.TAILSCALE }}
 
-      - name: Add SSH key for Deployer
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-
-
-      - name: Deploy to Webserver
-        run: vendor/bin/dep deploy
+      - name: Deploy to webserver
+        uses: deployphp/action@v1
+        with:
+          dep: deploy
+          private-key: ${{ secrets.SSH_KEY }}
 
