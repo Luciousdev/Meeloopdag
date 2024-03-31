@@ -10,7 +10,7 @@ $pageTitle="Login Page";
     <link rel="stylesheet" href="{{ asset('css/loginsignup.css') }}">
 </head>
 <body>
-    <h1 class="text-center">Login Form</h1>
+    <h1 class="text-center">Login1 Form</h1>
     <form wire:submit.prevent="submit" action="{{ route('login-user') }}" method="post">
         @if(Session::has('success'))
             <div class="alert alert-success">{{ session('success') }}</div>

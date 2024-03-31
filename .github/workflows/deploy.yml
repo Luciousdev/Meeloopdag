@@ -1,4 +1,4 @@
-name: Deploy to Webserver
+name: Deploy to webserver
 
 on:
   push:
@@ -36,5 +36,4 @@ jobs:
         with:
           dep: deploy
           private-key: ${{ secrets.SSH_KEY }}
-          verbosity: -vvv
 
