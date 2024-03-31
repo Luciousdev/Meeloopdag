@@ -26,7 +26,17 @@ jobs:
           curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.list | sudo tee /etc/apt/sources.list.d/tailscale.list
           sudo apt-get update
           sudo apt-get install tailscale
+
+      - name: Connect to Tailscale
+        run:
           sudo tailscale up --authkey ${{ secrets.TAILSCALE }}
+
+      - name: Add SSH key for Deployer
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
 
       - name: Deploy to Webserver
         run: vendor/bin/dep deploy
