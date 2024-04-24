@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Submissions;
+use App\Models\submissions;
 use App\Models\grades;
 use App\Models\User;
 
@@ -21,7 +21,7 @@ class gradeController extends Controller
         }
 
         // get all submissions with the related exercise
-        $submissions = Submissions::with('assignment')->with('user')->with('grade')->get();
+        $submissions = submissions::with('assignment')->with('user')->with('grade')->get();
 
         return view('teachers.grading', compact('data', 'submissions'));
     }
@@ -38,7 +38,7 @@ class gradeController extends Controller
         }
 
         // get the submission
-        $submission = Submissions::with('assignment')->with('user')->with('grade')->where('id', $id)->first();
+        $submission = submissions::with('assignment')->with('user')->with('grade')->where('id', $id)->first();
 
         return view('teachers.grade', compact('data', 'submission'));
     }
@@ -62,7 +62,7 @@ class gradeController extends Controller
         ]);
 
         // get the submission
-        $submission = Submissions::find($request->id);
+        $submission = submissions::find($request->id);
         // check if the submission has already been graded
         if($submission->grade){
             return redirect('/grading')->with('error', 'Submission has already been graded');
